@@ -1,2 +1,2 @@
 # Allow $Id$ expansion on main file
-ident pihole-checklogs.sh
+pihole-checklogs.sh ident
