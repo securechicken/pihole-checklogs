@@ -11,6 +11,7 @@
 #
 # Licensed under AGPL-3.0-only License [https://www.gnu.org/licenses/agpl-3.0.en.html].
 # Copyright (C) 2021, @securechicken
+# Version: $Id$
 
 # Variables
 # Caller script, to adapt for standalone use if needed (default value, read later from
