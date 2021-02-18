@@ -1,13 +1,13 @@
 # pihole-checklogs.sh
 A standalone Bash [Pi-hole](https://github.com/pi-hole/pi-hole) helper script, to check Pi-hole FTL-DB and DNS logs for a list of given domains/IPs, in order to determine if they have ever been queried by Pi-hole system. This is notably useful to investigate on (or check for) possible compromise, based on a list of network indicators of compromise (IOCs).
 
-This script was initially proposed as a Pi-hole CLI addition (pi-hole/pi-hole#4026), to be used as `pihole checklogs`, but maintainers did not want to add such functionality in core system. It is provided as a standalone script.
+This script was initially [proposed](https://github.com/pi-hole/pi-hole/pull/4026) as a Pi-hole CLI addition, to be used as `pihole checklogs`, but maintainers did not deemed such functionality to be in scope. It is provided as a standalone script.
 
 ## Requirements
 A fully working [Pi-hole](https://github.com/pi-hole/pi-hole) environment (host), with Bash 4+, GNU grep and zcat.
 
 ## Installation
-Just download the archived script from [Releases](/releases), and put it somewhere in your Pi-hole host. Get sure the script is executable then (`chmod +x /path/to/pihole-checklogs.sh`).
+Just download the archived script from [releases](https://github.com/securechicken/pihole-checklogs/releases), and put it somewhere in your Pi-hole host. Get sure the script is executable then (`chmod +x /path/to/pihole-checklogs.sh`).
 
 In order to be able to run the script as a binary from anywhere in your host without specifying a full path, you can link the script in a repository from your Bash `$PATH`, e.g.: `sudo ln -s /path/to/pihole-checklogs.sh /usr/local/bin/pihole-checklogs`.
 
