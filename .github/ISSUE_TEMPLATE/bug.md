@@ -14,7 +14,7 @@ assignees: ''
 |**Host OS**|<!-- Put the name and version of your OS, as found in "PRETTY_NAME" line of /usr/lib/os-release on some GNU/Linux -->|
 |**Pi-hole version**|<!-- Use 'pihole version' command on your Pi-hole host, and pick the first line, e.g.: Pi-hole version is v5.2.4 (Latest: v5.2.4) -->|
 |**Pi-hole FTL version**|<!-- Use 'pihole version' command on your Pi-hole host, and pick the last line, e.g.: FTL version is v5.7 (Latest: v5.7) -->|
-|**Bash version**|<!-- Use "env bash -c 'echo ${BASH_VERSION}'" command on your Pi-hole host, and pick the last line, e.g.: 5.1.4(1)-release -->|
+|**Bash version**|<!-- Use "env bash -c 'echo ${BASH_VERSION} && exit'" command on your Pi-hole host, and pick the last line, e.g.: 5.1.4(1)-release -->|
 |**Pi-hole FTL-DB path**|<!-- Use 'grep "DBFILE" /etc/pihole/pihole-FTL.conf' command on your Pi-hole host, and put the result here, or "default" if empty -->|
 |**Pi-hole dnsmasq logs path**|<!-- Use 'grep "log-facility" /etc/dnsmasq.d/01-pihole.conf' command on your pi-hole host, and put the result here, or "N/A" if empty -->|
 |**Script location**|<!-- Put the full path of the pihole-checklogs.sh script, from where it is executed when you encountered a bug -->|
