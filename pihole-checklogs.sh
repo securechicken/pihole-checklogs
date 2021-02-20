@@ -14,11 +14,8 @@
 # Version: $Id$
 
 # Variables
-# Caller script, to adapt for standalone use if needed (default value, read later from
-# command line and arguments)
-readonly PIHOLE_CALLER_NAME="pihole"
-readonly PIHOLE_CALLER_COMMAND="checklogs"
-CALLER_SCRIPT="${PIHOLE_CALLER_NAME} ${PIHOLE_CALLER_COMMAND}"
+# Caller script name to show in help output (default value, read later from $0)
+CALLER_SCRIPT="pihole-checklogs.sh"
 # Pi-hole root scripts folder location
 readonly PIHOLE_OPT="/opt/pihole"
 # Pi-hole FTL and dnsmaq confs location
@@ -522,14 +519,8 @@ function main() {
   exit ${EXIT_OK}
 }
 
-# Check caller and adapt arguments accordingly
-if [[ "$#" -ge 1 && "$1" == "${PIHOLE_CALLER_COMMAND}" ]]; then
-  # We are called by Pi-hole command (default), remove the sub-command argument
-  shift
-else
-  # We are called standalone, replace caller default name for usage info clarity
-  CALLER_SCRIPT="$0"
-fi
+# Get caller script name to show in help output
+CALLER_SCRIPT="${0##*/}"
 
 # Exit with error and show usage if no arguments, start with main otherwise
 if [[ "$#" -eq 0 ]]; then
