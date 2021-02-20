@@ -513,13 +513,17 @@ function main() {
     pinfo "Using DNS logs: ${PIHOLE_LOGS}"
   fi
 
-  # Checking FTL DB for FQDNs/domains, and in DNS logs if results found in FTL DB
-  if [[ "${#TAB_FQDN[*]}" -gt 0 ]]; then
-    check_domains
-  fi
-  # Checking DNS logs for IPs
-  if [[ "${#TAB_IP[*]}" -gt 0 && "${HAS_DNSLOGS}" == true ]]; then
-    check_ips
+  if [[ "${#TAB_FQDN[*]}" -eq 0 && "${#TAB_IP[*]}" -eq 0 ]]; then
+    pwarn "No FQDN/domain or IP in input IOCs file..."
+  else
+    # Checking FTL DB for FQDNs/domains, and in DNS logs if results found in FTL DB
+    if [[ "${#TAB_FQDN[*]}" -gt 0 ]]; then
+      check_domains
+    fi
+    # Checking DNS logs for IPs
+    if [[ "${#TAB_IP[*]}" -gt 0 && "${HAS_DNSLOGS}" == true ]]; then
+      check_ips
+    fi
   fi
 
   # Show results if any
