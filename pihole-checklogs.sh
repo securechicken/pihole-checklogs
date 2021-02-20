@@ -62,9 +62,22 @@ readonly EXIT_ERR_DNSLOGS_QUERY=22
 readonly EXIT_MSG_DNSLOGS_QUERY="Error: DNS logs search failed"
 
 # Dependencies: import color printing
-# shellcheck source=/opt/pihole/COL_TABLE
-# shellcheck disable=SC1091
-source "${PIHOLE_OPT}/COL_TABLE"
+readonly PIHOLE_COLORS_DEF="${PIHOLE_OPT}/COL_TABLE"
+if [[ -f "${PIHOLE_COLORS_DEF}" ]]; then
+  # shellcheck source=/opt/pihole/COL_TABLE
+  # shellcheck disable=SC1091
+  source "${PIHOLE_COLORS_DEF}"
+else
+  readonly COL_NC=''
+  readonly COL_GRAY=''
+  readonly COL_RED=''
+  readonly COL_GREEN=''
+  readonly COL_YELLOW=''
+  readonly COL_CYAN=''
+  readonly TICK="[✓]"
+  readonly CROSS="[✗]"
+  readonly INFO="[i]"
+fi
 
 #######################################
 # Prints usage help.
