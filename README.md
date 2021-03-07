@@ -7,7 +7,7 @@ This script was initially [proposed](https://github.com/pi-hole/pi-hole/pull/402
 A fully working [Pi-hole](https://github.com/pi-hole/pi-hole) environment (host), with Bash 4+, GNU grep and zcat.
 
 ## Installation
-Just download the archived script from [releases](https://github.com/securechicken/pihole-checklogs/releases), and put it somewhere in your Pi-hole host. Get sure the script is executable then (`chmod +x /path/to/pihole-checklogs.sh`).
+Just download a copy of the script from the [latest release](https://github.com/securechicken/pihole-checklogs/releases/latest), and put it somewhere in your Pi-hole host. Get sure the script is executable then (`chmod +x /path/to/pihole-checklogs.sh`).
 
 In order to be able to run the script as a binary from anywhere in your host without specifying a full path, you can link the script in a repository from your Bash `$PATH`, e.g.: `sudo ln -s /path/to/pihole-checklogs.sh /usr/local/bin/pihole-checklogs`.
 
