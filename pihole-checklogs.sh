@@ -330,23 +330,36 @@ function grep_dns_logs() {
 #######################################
 function check_domains() {
   pinfo "Checking for FQDNs/domains in FTL DB..."
+  if [[ "${#TAB_FQDN[*]}" -gt 100 ]]; then
+    pwarn "There are ${#TAB_FQDN[*]} FQDNs to check, query will take a (very) long time"
+  fi
   # Building SQL query for Pi-hole FTL DB
-  local where_cond=""
+  local ftl_query=""
+  local in_list=""
+  local like_buffer=""
+  local like_values=""
   local a_fqdn=""
+  local index=0
+  for a_fqdn in "${TAB_FQDN[@]}"; do
+    index=$(( index + 1 ))
+    in_list="${in_list}'${a_fqdn}'"
+    like_buffer="${like_buffer} OR domain LIKE '%.${a_fqdn}'"
+    # OR x LIKE y OR x LIKE z chain is packaged in parenthesis group of 100 ORed LIKEs to
+    # circumvent the default SQL depth limit of 1000 conditions in case the FQDNs search
+    # is on more than 999 items.
+    if [[ "${index}" -eq 100 ]]; then
+      like_values="${like_values} OR (${like_buffer/ OR /})"
+      like_buffer=""
+      index=0
+    fi
+  done
+  in_list="${in_list//\'\'/\', \'}"
   if [[ "${FQDN_MATCH_SUBDOMAINS}" == true ]]; then
-    for a_fqdn in "${TAB_FQDN[@]}"; do
-      where_cond="${where_cond}(domain LIKE '%${a_fqdn}')"
-    done
-    where_cond="${where_cond//)(/) OR (}"
+    ftl_query="SELECT DISTINCT timestamp,domain,client FROM queries WHERE domain IN (${in_list})${like_values}"
   else
     pinfo "--nosubs flag is set, will look for exact matches only"
-    for a_fqdn in "${TAB_FQDN[@]}"; do
-      where_cond="${where_cond}'${a_fqdn}'"
-    done
-    where_cond="${where_cond//\'\'/\', \'}"
-    where_cond="domain IN (${where_cond})"
+    ftl_query="SELECT DISTINCT timestamp,domain,client FROM queries WHERE domain IN (${in_list})"
   fi
-  local ftl_query="SELECT DISTINCT timestamp,domain,client FROM queries WHERE ( ${where_cond} )"
   # Executing sqlite3 command in FTL DB
   local sql_results=""
   # If results found, print, store results, and then look for details in DNS queries logs
