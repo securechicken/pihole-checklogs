@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # pihole-cheklogs.sh
+# VERSION: 1.1.1
 # Requires a full working Pi-hole environment, Bash 4+, GNU grep and zcat.
 #
 # Check Pi-hole FTL-DB and DNS logs for a list of given domains/IPs, in order to
@@ -353,6 +354,7 @@ function check_domains() {
       index=0
     fi
   done
+  like_values="${like_values}${like_buffer}"
   in_list="${in_list//\'\'/\', \'}"
   if [[ "${FQDN_MATCH_SUBDOMAINS}" == true ]]; then
     ftl_query="SELECT DISTINCT timestamp,domain,client FROM queries WHERE domain IN (${in_list})${like_values}"
